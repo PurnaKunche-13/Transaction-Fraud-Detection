@@ -1,0 +1,593 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+/* =========================
+   ROOT
+========================= */
+
+:root{
+    --bg:#050816;
+    --bg2:#0d1228;
+    --card:rgba(15,25,45,.65);
+    --border:rgba(0,255,255,.18);
+
+    --cyan:#00f5ff;
+    --green:#00ff88;
+    --red:#ff3366;
+    --yellow:#ffd93d;
+
+    --text:#ffffff;
+    --muted:#9db2ce;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:Poppins,sans-serif;
+    color:var(--text);
+
+    background:
+        radial-gradient(circle at top left,#003b46 0%,transparent 30%),
+        radial-gradient(circle at bottom right,#18002e 0%,transparent 30%),
+        linear-gradient(135deg,#050816,#081324,#050816);
+
+    min-height:100vh;
+}
+
+/* animated grid */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(0,255,255,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,255,255,.05) 1px,transparent 1px);
+
+    background-size:40px 40px;
+
+    animation:gridMove 20s linear infinite;
+
+    z-index:-1;
+
+}
+
+@keyframes gridMove{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(40px);
+    }
+
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+
+    width:95%;
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:40px 0;
+
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.topbar h2{
+
+    font-family:Orbitron,sans-serif;
+
+    color:var(--cyan);
+
+    text-shadow:0 0 15px var(--cyan);
+
+}
+
+/* =========================
+   GLASS CARD
+========================= */
+
+.glass-card{
+
+    background:var(--card);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 0 30px rgba(0,255,255,.12);
+
+}
+
+/* =========================
+   STATUS CARDS
+========================= */
+
+.status-row{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+.status-card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(0,255,255,.15);
+
+    border-radius:15px;
+
+    padding:18px;
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+    transition:.3s;
+
+}
+
+.status-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 0 20px cyan;
+
+}
+
+.status-card-icon{
+
+    font-size:30px;
+
+}
+
+.status-card-info span{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+}
+
+.status-card-info strong{
+
+    color:var(--green);
+
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title-glow{
+
+    font-family:Orbitron,sans-serif;
+
+    color:var(--cyan);
+
+    text-shadow:
+
+        0 0 3px cyan,
+
+        0 0 9px cyan,
+
+        0 0 15px cyan;
+
+    margin-bottom:10px;
+
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+
+    margin-bottom:25px;
+
+}
+
+.form-label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--cyan);
+
+}
+
+.form-input{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:1px solid rgba(0,255,255,.2);
+
+    background:#0d1425;
+
+    color:white;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.form-input:focus{
+
+    border-color:cyan;
+
+    box-shadow:0 0 20px cyan;
+
+}
+
+.input-container{
+
+    position:relative;
+
+}
+
+.input-icon{
+
+    position:absolute;
+
+    top:50%;
+
+    left:15px;
+
+    transform:translateY(-50%);
+
+}
+
+.form-input{
+
+    padding-left:45px;
+
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.submit-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    background:linear-gradient(90deg,#00f5ff,#00ff88);
+
+    color:#001;
+
+    transition:.35s;
+
+}
+
+.submit-btn:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+
+        0 0 15px cyan,
+
+        0 0 40px cyan;
+
+}
+
+.presets-container{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:10px;
+
+}
+
+.preset-btn{
+
+    background:#0d1425;
+
+    border:1px solid rgba(0,255,255,.25);
+
+    color:cyan;
+
+    padding:8px 15px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.preset-btn:hover{
+
+    background:cyan;
+
+    color:#000;
+
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error-banner{
+
+    background:rgba(255,0,0,.15);
+
+    border:1px solid red;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+}
+
+/* =========================
+   RESULT PAGE
+========================= */
+
+.result-box{
+
+    padding:25px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    margin:20px 0;
+
+}
+
+.safe{
+
+    background:rgba(0,255,136,.12);
+
+    border:1px solid #00ff88;
+
+}
+
+.fraud{
+
+    background:rgba(255,0,80,.15);
+
+    border:1px solid #ff3366;
+
+}
+
+.result-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+.result-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress{
+
+    width:100%;
+
+    height:18px;
+
+    background:#111;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    background:linear-gradient(90deg,#00ff88,#00f5ff);
+
+    box-shadow:0 0 20px cyan;
+
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    gap:20px;
+
+}
+
+/* =========================
+   SCANNER
+========================= */
+
+.scan-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    background:rgba(0,0,0,.9);
+
+    z-index:9999;
+
+}
+
+.scanner-circle{
+
+    width:140px;
+
+    height:140px;
+
+    border:5px solid cyan;
+
+    border-radius:50%;
+
+    border-top-color:transparent;
+
+    animation:spin 1s linear infinite;
+
+    box-shadow:0 0 30px cyan;
+
+}
+
+.scanner-text{
+
+    margin-top:25px;
+
+    font-family:Orbitron;
+
+    color:cyan;
+
+    letter-spacing:2px;
+
+}
+
+.scanner-subtext{
+
+    color:white;
+
+    margin-top:15px;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+.topbar{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.glass-card{
+
+padding:20px;
+
+}
+
+.status-row{
+
+grid-template-columns:1fr;
+
+}
+
+}

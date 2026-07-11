@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Result</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<main class="result-container">
+
+    <div class="glass-card">
+
+        <h1 class="title-glow">🔍 Transaction Scan Result</h1>
+
+        <br>
+
+        {% if result.prediction == 1 %}
+
+        <div class="result-box fraud">
+            <h2>⚠️ Fraud Detected</h2>
+            <p>This transaction is predicted as <strong>Fraud</strong>.</p>
+            <a> Contact the Cyber Department : <b>1991</b></a>
+        </div>
+
+        {% else %}
+
+        <div class="result-box safe">
+            <h2>✅ Legitimate Transaction</h2>
+            <p>This transaction is predicted as <strong>Not Fraud</strong>.</p>
+        </div>
+
+        {% endif %}
+
+        <hr>
+
+        <h3>Transaction Details</h3>
+
+        <table class="result-table">
+
+            <tr>
+                <td><strong>Transaction Time</strong></td>
+                <td>{{ time }} seconds</td>
+            </tr>
+
+            <tr>
+                <td><strong>Transaction Amount</strong></td>
+                <td>₹{{ amount }}</td>
+            </tr>
+
+            <tr>
+                <td><strong>Prediction</strong></td>
+                <td>{{ result.message }}</td>
+            </tr>
+
+            <tr>
+                <td><strong>Confidence</strong></td>
+                <td>{{ result.confidence }}%</td>
+            </tr>
+
+            <tr>
+                <td><strong>Fraud Probability</strong></td>
+                <td>{{ result.fraud_probability }}%</td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <!-- Progress Bar -->
+        <h3>Fraud Risk</h3>
+
+        <div class="progress">
+            <div class="progress-bar"
+                 style="width: {{ result.fraud_probability }}%;">
+            </div>
+        </div>
+
+        <p style="text-align:center; margin-top:10px;">
+            {{ result.fraud_probability }}% Risk
+        </p>
+
+        <br>
+
+        <div style="text-align:center;">
+
+            <a href="{{ url_for('home') }}" class="submit-btn">
+                🔄 Scan Another Transaction
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

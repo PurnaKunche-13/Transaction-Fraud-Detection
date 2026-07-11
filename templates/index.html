@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldGuard AI - Real-time Transaction Fraud Detection Scanner</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Scan Simulation Overlay -->
+    <div id="scanOverlay" class="scan-overlay" style="display:none;">
+        <div class="scanner-container">
+            <div class="scanner-circle"></div>
+            <div class="scanner-laser"></div>
+        </div>
+
+        <div class="scanner-text">
+            ANALYZING TRANSACTION
+        </div>
+
+        <div id="scannerSubtext" class="scanner-subtext">
+            Initializing machine learning model...
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <h2>LegFraDe AI</h2>
+
+            <div class="status-card-info">
+                <span style="color:#10b981;font-weight:bold;">
+                    ● CORE ENGINE : ACTIVE
+                </span>
+            </div>
+        </header>
+
+        <!-- Status Cards -->
+        <section class="status-row">
+
+            <div class="status-card">
+                <div class="status-card-icon">⚡</div>
+
+                <div class="status-card-info">
+                    <span>Scan Latency</span>
+                    <strong>3.4 ms</strong>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-card-icon">🎯</div>
+
+                <div class="status-card-info">
+                    <span>Model Accuracy</span>
+                    <strong>99.82%</strong>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-card-icon">🛡️</div>
+
+                <div class="status-card-info">
+                    <span>Threat DB</span>
+                    <strong>v4.91 (Updated)</strong>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Main Card -->
+        <section class="glass-card">
+
+            <h1 class="title-glow">
+                Transaction Security Scan
+            </h1>
+
+            <p style="margin-bottom:20px;">
+                Input the transaction details below. The AI model will
+                analyze the transaction for fraud.
+            </p>
+
+            {% if error %}
+            <div class="error-banner">
+                ⚠️ {{ error }}
+            </div>
+            {% endif %}
+
+            <form id="fraudForm"
+                  action="{{ url_for('submit') }}"
+                  method="POST">
+
+                <!-- Time -->
+                <div class="form-group">
+
+                    <label for="time">
+                        Relative Transaction Time (Seconds)
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="number"
+                        step="any"
+                        id="time"
+                        name="time"
+                        required
+                        min="0"
+                        max="24"
+                        placeholder="e.g. 3600"
+                        value="{{ request.form.get('time','') }}"
+                    >
+
+                    <div class="presets-container">
+
+                        <button type="button"
+                                onclick="setPreset('time',0)">
+                            0s
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('time',12)">
+                            12 Hours
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('time',18)">
+                            18 Hours
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('time',172800)">
+                            24 Hours
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group">
+
+                    <label for="amt">
+                        Transaction Amount (₹)
+                    </label>
+
+                    <input
+                        class="form-input"
+                        type="number"
+                        step="any"
+                        id="amt"
+                        name="amt"
+                        required
+                        min="0"
+                        placeholder="e.g. 5000"
+                        value="{{ request.form.get('amt','') }}"
+                    >
+
+                    <div class="presets-container">
+
+                        <button type="button"
+                                onclick="setPreset('amt',100)">
+                            ₹100
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('amt',1500)">
+                            ₹1,500
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('amt',25000)">
+                            ₹25,000
+                        </button>
+
+                        <button type="button"
+                                onclick="setPreset('amt',120000)">
+                            ₹1,20,000
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    🔍 Run Security Scan
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Footer -->
+        <section class="grid">
+
+            <div class="glass-card">
+
+                <h3>⚡ Security Tips</h3>
+
+                <p>
+                    Larger transaction amounts and unusual transaction
+                    timings increase the fraud probability according to
+                    the machine learning model.
+                </p>
+
+            </div>
+
+            <div class="glass-card">
+
+                <h3>🧠 Machine Learning Model</h3>
+
+                <p>
+                    This application predicts fraudulent credit card
+                    transactions using a trained machine learning model.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+<script>
+
+function setPreset(id,value){
+    document.getElementById(id).value=value;
+}
+
+
+
+const form=document.getElementById("fraudForm");
+
+const overlay=document.getElementById("scanOverlay");
+
+const scannerSubtext=document.getElementById("scannerSubtext");
+
+const logs=[
+"Initializing model...",
+"Loading features...",
+"Checking anomaly score...",
+"Running prediction...",
+"Computing fraud probability...",
+"Preparing report..."
+];
+
+form.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    overlay.style.display="flex";
+
+    let i=0;
+
+    const interval=setInterval(function(){
+
+        if(i<logs.length){
+
+            scannerSubtext.innerHTML=logs[i];
+
+            i++;
+
+        }
+
+    },250);
+
+    setTimeout(function(){
+
+        clearInterval(interval);
+
+        HTMLFormElement.prototype.submit.call(form);
+
+    },1800);
+
+});
+
+</script>
+
+</body>
+</html>
