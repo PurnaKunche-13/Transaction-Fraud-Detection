@@ -216,11 +216,11 @@ main{
 
     text-shadow:
 
-        0 0 3px cyan,
+        0 0 1px cyan,
 
-        0 0 9px cyan,
+        0 0 2px cyan,
 
-        0 0 15px cyan;
+        0 0 3px cyan;
 
     margin-bottom:10px;
 
